@@ -1,4 +1,6 @@
-- [Recursion](https://github.com/roshgupta/DSA-Notes#)
+- [Recursion](https://github.com/roshgupta/DSA-Notes#recursion)
+  - [Print all Sub-Sequences with sum equals to K](https://github.com/roshgupta/DSA-Notes#print-all-sub-sequences-with-sum-equals-to-k)
+  
 
 
 <hr>
