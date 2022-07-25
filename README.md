@@ -1,4 +1,5 @@
 - [Recursion](https://github.com/roshgupta/DSA-Notes#recursion)
+  - [Print all Sub-Sequences](https://github.com/roshgupta/DSA-Notes#print-all-sub-sequences)
   - [Print all Sub-Sequences with sum equals to K](https://github.com/roshgupta/DSA-Notes#print-all-sub-sequences-with-sum-equals-to-k)
   - [Print ONE Sub-Sequences with sum equals to K](https://github.com/roshgupta/DSA-Notes#print-one-sub-sequences-with-sum-equals-to-k)
   - [Count number of Sub-Sequences with sum equals to K](https://github.com/roshgupta/DSA-Notes#count-number-of-sub-sequences-with-sum-equals-to-k)
@@ -8,6 +9,36 @@
 <hr>
 
 # Recursion
+
+## Print all Sub-Sequences
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+void printSubSequence(int index, int arr[], int n, vector<int> &answer) {
+  if (index == n) {
+    for (auto it : answer) cout << it << " ";
+    if (answer.size() == 0) cout << "{}";
+    cout << endl;
+    return;
+  }
+  // pick
+  answer.push_back(arr[index]);
+  printSubSequence(index + 1, arr, 3, answer);
+  // not pick
+  answer.pop_back();
+  printSubSequence(index + 1, arr, 3, answer);
+}
+
+int main() {
+  int arr[] = {1, 2, 3};
+  vector<int> answer;
+  printSubSequence(0, arr, 3, answer);
+  return 0;
+}
+
+
+```
 
 ## Print all Sub-Sequences with sum equals to K
 
