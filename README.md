@@ -153,3 +153,5 @@ int main() {
 
 
 ```
+
+> In case of counting subsequences, we can return 1 (if condition is satisfied) or, we can return 0. And we will take sum of all returned value.
