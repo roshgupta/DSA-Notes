@@ -155,3 +155,180 @@ int main() {
 ```
 
 > In case of counting subsequences, we can return 1 (if condition is satisfied) or, we can return 0. And we will take sum of all returned value.
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+# Bit Manipulation
+
+<p align="center"><img src="https://images.velog.io/images/gtfo/post/7ec51a46-0ca1-45bc-b39c-efb68848d367/types-of-bitwise-operators.jpg" height="250"></p>
+
+## Odd-even number
+
+> Number & 1 = 0  --> Even <br>
+> Number & 1 = 1  --> Odd
+```cpp
+bool isEven(int a) {
+        return !(a & 1);
+    }
+```
+
+## Swap two numbers
+
+```cpp
+ void swap(int a, int b) {
+        cout<<"a="<<a<<" "<<"b="<<b<<endl;
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        cout<<"a="<<a<<" "<<"b="<<b<<endl;
+    }
+```
+
+## Bit Masking
+
+### Get ith bit of a number
+
+```cpp
+// ith bit of an integer a (LSB to MSB)
+    int ithbit(int a, int i) {
+        int mask = 1 << i; // left shift 1 by i bits (to the ith bit)
+
+        // ith bit = if (a & mask == 1) 1 else 0
+        return a & mask;
+    }
+```
+
+### Set ith bit of a number
+
+```cpp
+// set => set to 1 (by default)
+    int setithBit(int a, int i) {
+        int mask = 1 << i; // 1 shifted left by i bits
+
+        return a | mask; // will set ith bit
+    }
+```
+
+### Clear ith bit of a number
+
+```cpp
+int clearithBit(int a, int i) {
+        int mask = ~(1 << i); // 0 shifted left by i bits (other bits 1)
+
+        return a & mask; // will clear ith bit
+    }
+```
+
+### Find number of bits to change to convert a to b
+
+```cpp
+int differentBits(int a, int b) {
+        int t = a ^ b; // XOR will set bits in t where a and b have different bits
+
+        // our answer is the number of set bits in t
+        int res = 0;
+        /*
+        // right shift and increase counter if LSB is 1
+        // Time complexity = log(n) i.e. total number of bits
+        while (t != 0) {
+            if ((t & 1) == 1)
+                res++;
+
+            t = t >> 1;
+        }*/
+
+        // Time complexity = number of set bits ⬇️
+        // 💡 Finding number of set bits
+        while (t != 0) {
+            t = t & (t - 1); // clears the least significant set bit
+            res++;
+        }
+        return res;
+    }
+```
+
+## XOR Problems
+
+### Find the element that appears once in an array where every other element appears twice
+
+`Time Complexity: O(n)`<br>
+`Space Complexity: O(1)`
+```cpp
+
+int singleNumber(vector<int> arr) {
+        int res = 0;
+
+        for (int a : arr) {
+            res ^= a;
+        }
+        return res;
+    }
+
+```
+
+### Find the two non-repeating elements in an array of repeating elements
+
+`Time Complexity: O(n)`<br>
+`Space Complexity: O(1)`
+```cpp
+vector<int> twoUniqueNumbers(vector<int> arr) {
+        int temp = 0;
+
+        for (int a : arr)
+            temp ^= a;
+
+        temp = temp & -temp; // sets rightmost set bit of temp (let's say ith bit)
+        // at this bit both a and b will have distinct bits
+        // we will separate array in two parts
+        // 1 -> ith bit is set
+        // 2 -> ith bit is clear
+
+        int a = 0;
+        int b = 0;
+
+        for (int x : arr) {
+            // ith bit is clear
+            if ((temp & x) == 0)
+                a ^= x; // duplicates will be cancelled out to 0
+            // ith bit is set
+            else
+                b ^= x; // duplicates will be cancelled out to 0
+        }
+        vector<int> ans;
+        ans.push_back(a);
+        ans.push_back(b);
+        return ans
+    }
+```
+
+### Unique element in an array where all elements occur thrice except one
+
+`Time Complexity: O(n)`<br>
+`Space Complexity: O(1)`
+> This is java code, i will update this with cpp code later
+```java
+// can be generelised for k occurances
+static int singleNumber(int[] arr) {
+        int[] bitCount = new int[32]; // 32-bit integer
+
+        // for each bit
+        for (int i = 0; i < bitCount.length; i++) {
+            // for each number
+            for (int k : arr) {
+                if ((k & (1 << i)) != 0) // ith  bit
+                    bitCount[i]++;
+            }
+        }
+
+        int res = 0;
+        // traversing bit count array
+        for (int i = 0; i < bitCount.length; i++) {
+            bitCount[i] = bitCount[i] / 3 == 0 ? 0 : bitCount[i] % 3; // set bits which are not multiple of 3 (unique)
+            res += Math.pow(2, i) * bitCount[i]; // compute unique number along with
+        }
+        return res;
+    }
+```
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
