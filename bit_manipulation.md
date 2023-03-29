@@ -53,7 +53,7 @@ int getSum(int a, int b) {
 ```
 	
 ```cpp
-	class Solution {
+class Solution {
 public:
     int getSum(int a, int b) {
         // for adding two numbers, XOR operation can give result of current position
@@ -72,7 +72,9 @@ public:
         return a; 
     }
 };
-	```
+
+```
+	
 	
 
 <h5 id="missing-number">Missing Number</h5>
