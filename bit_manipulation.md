@@ -51,6 +51,29 @@ int getSum(int a, int b) {
     return b==0? a:getSum(a^b, (a&b)<<1); //be careful about the terminating condition;
 }
 ```
+	
+```cpp
+	class Solution {
+public:
+    int getSum(int a, int b) {
+        // for adding two numbers, XOR operation can give result of current position
+        // and AND operation gives carry for that following position
+        // the good thing is that, we do not need to do these things bit by bit
+        // we can perform XOR operation on complete binary digits
+        // and then add the carry part (ofcourse shifted by 1 bit)
+        // using same operation until cary becomes zero
+        // https://www.youtube.com/watch?v=gVUrDV4tZfY
+        while(b!=0){
+            // here unsigned int is taken because by left shifting, number can get negative
+            int temp=(unsigned int)(a&b)<<1;
+            a=a^b;
+            b=temp;
+        }
+        return a; 
+    }
+};
+	```
+	
 
 <h5 id="missing-number">Missing Number</h5>
 <p>Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.  For example, Given nums = [0, 1, 3] return 2. (Of course, you can do this by math.)</p>
